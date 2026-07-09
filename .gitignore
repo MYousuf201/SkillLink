@@ -3,3 +3,11 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+~$*.docx
+*.docx
+*.svg
+rebuild-docx.js
+process-docx.js
+extracted.txt
+package.json
+package-lock.json

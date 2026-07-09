@@ -1,0 +1,13 @@
+docs/
+*.docx
+*.docx.*
+*.png
+*.svg
+*.js
+package.json
+package-lock.json
+node_modules/
+.gitignore
+.git/
+.vercel/
+README.md
