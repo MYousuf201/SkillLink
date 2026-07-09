@@ -1,0 +1,112 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 375 812"
+  width="100%"
+  height="100%"
+  style="background: #F8F9FA; font-family: 'Segoe UI', Arial, sans-serif"
+>
+  <defs>
+    <style>
+      @keyframes toastSlide {
+        0%   { transform: translateY(-100px); opacity: 0; }
+        12%  { transform: translateY(0);      opacity: 1; }
+        80%  { transform: translateY(0);      opacity: 1; }
+        100% { transform: translateY(-100px); opacity: 0; }
+      }
+      @keyframes scaleIn {
+        0%   { transform: scale(0);     opacity: 0; }
+        65%  { transform: scale(1.08);  opacity: 1; }
+        100% { transform: scale(1);     opacity: 1; }
+      }
+      @keyframes drawCheck {
+        0%   { stroke-dashoffset: 48; }
+        100% { stroke-dashoffset: 0;  }
+      }
+      @keyframes fadeUp {
+        0%   { opacity: 0; transform: translateY(18px); }
+        100% { opacity: 1; transform: translateY(0);    }
+      }
+
+      .toast { animation: toastSlide 3.5s ease-in-out forwards; }
+      .anim-scale { animation: scaleIn 0.45s ease-out both; }
+      .anim-draw  { stroke-dasharray: 48; animation: drawCheck 0.35s ease-out both; }
+      .a1 { animation: fadeUp 0.5s ease-out both; animation-delay: 0.4s; }
+      .a2 { animation: fadeUp 0.5s ease-out both; animation-delay: 0.6s; }
+      .a3 { animation: fadeUp 0.5s ease-out both; animation-delay: 0.8s; }
+      .btn-solid  { cursor: pointer; transition: transform 0.12s; }
+      .btn-solid:active  { transform: scale(0.95); }
+      .btn-outline  { cursor: pointer; transition: transform 0.12s; }
+      .btn-outline:active { transform: scale(0.95); }
+    </style>
+  </defs>
+
+  <rect width="375" height="44" fill="#E9ECEF" />
+  <text x="345" y="28" fill="#6C757D" font-size="10" text-anchor="end">10:00 AM</text>
+
+  <rect y="44" width="375" height="56" fill="#FFFFFF" stroke="#DEE2E6" />
+  <text x="187" y="78" font-size="18" font-weight="bold" fill="#212529" text-anchor="middle">Application Status</text>
+
+  <g class="anim-scale" transform="translate(187.5, 250)">
+    <circle cx="0" cy="0" r="68" fill="#E8F8F0" />
+    <circle cx="0" cy="0" r="50" fill="#2B9348" />
+    <path
+      class="anim-draw"
+      d="M -22 0 L -7 15 L 22 -15"
+      stroke="#ffffff" stroke-width="5"
+      stroke-linecap="round" stroke-linejoin="round"
+      fill="none"
+    />
+  </g>
+
+  <g class="a1" transform="translate(187, 345)">
+    <text x="0" y="0" font-size="22" font-weight="bold" fill="#212529" text-anchor="middle">Application Submitted!</text>
+    <text x="0" y="26" font-size="14" fill="#6C757D" text-anchor="middle">Your application has been sent successfully</text>
+  </g>
+
+  <g class="a2" transform="translate(40, 405)">
+    <rect x="0" y="0" width="295" height="1" fill="#DEE2E6" />
+
+    <g transform="translate(0, 16)">
+      <text x="0" y="0" font-size="12" fill="#6C757D">Project</text>
+      <text x="0" y="18" font-size="14" font-weight="600" fill="#212529">Social Media Graphic Designer</text>
+    </g>
+
+    <g transform="translate(0, 56)">
+      <text x="0" y="0" font-size="12" fill="#6C757D">Company</text>
+      <text x="0" y="18" font-size="14" font-weight="600" fill="#212529">Local Bakery Co.</text>
+    </g>
+
+    <g transform="translate(0, 96)">
+      <text x="0" y="0" font-size="12" fill="#6C757D">Budget</text>
+      <text x="0" y="18" font-size="14" font-weight="600" fill="#2B9348">PKR 15,000 - 25,000</text>
+    </g>
+
+    <g transform="translate(0, 136)">
+      <text x="0" y="0" font-size="12" fill="#6C757D">Application ID</text>
+      <text x="0" y="18" font-size="14" font-weight="600" fill="#212529">#SL-2024-0847</text>
+    </g>
+  </g>
+
+  <g class="a3" transform="translate(47, 590)">
+    <a href="SVG2.svg" target="_top">
+      <g class="btn-solid">
+        <rect x="0" y="0" width="280" height="48" rx="24" fill="#212529" />
+        <text x="140" y="30" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">Browse More Projects</text>
+      </g>
+    </a>
+    <a href="SVG1.svg" target="_top">
+      <g class="btn-outline" transform="translate(0, 60)">
+        <rect x="0" y="0" width="280" height="48" rx="24" fill="none" stroke="#CED4DA" stroke-width="1.5" />
+        <text x="140" y="30" font-size="14" font-weight="600" fill="#6C757D" text-anchor="middle">Back to Home</text>
+      </g>
+    </a>
+  </g>
+
+  <g class="toast" transform="translate(40, 60)">
+    <rect x="0" y="0" width="295" height="52" rx="12" fill="#2B9348" />
+    <text x="58" y="22" font-size="14" font-weight="bold" fill="#ffffff">Success!</text>
+    <text x="58" y="38" font-size="11" fill="rgba(255, 255, 255, 0.85)">Application submitted successfully ✓</text>
+    <circle cx="28" cy="26" r="12" fill="rgba(255, 255, 255, 0.18)" />
+    <text x="28" y="31" font-size="13" fill="#ffffff" text-anchor="middle">✓</text>
+  </g>
+</svg>

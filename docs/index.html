@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillLink — Find Local Projects. Build Your Skills.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#3880FF', dark: '#2C6EE0', light: '#E8F0FE' },
+            success: { DEFAULT: '#2B9348', light: '#E8F8F0' },
+            dark: '#212529',
+            muted: '#6C757D',
+            surface: '#F8F9FA',
+            border: '#DEE2E6'
+          },
+          fontFamily: { sans: ['Segoe UI', 'Arial', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { scroll-behavior: smooth; }
+    .card-hover { transition: transform .15s, box-shadow .15s; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,0,.1); }
+    .btn-press { transition: transform .1s; }
+    .btn-press:active { transform: scale(.95); }
+    .chip { transition: all .15s; cursor: pointer; }
+    .chip:hover { background: #E8F0FE; border-color: #3880FF; }
+    .card-hidden { display: none; }
+    .bookmark-btn { transition: all .15s; }
+    .bookmark-btn:hover { transform: scale(1.15); }
+    .bookmark-btn.saved svg { fill: #e94560; stroke: #e94560; }
+    .toast { animation: toastIn .35s ease-out; }
+    @keyframes toastIn { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+    .fade-in { animation: fIn .4s ease-out; }
+    @keyframes fIn { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="font-sans bg-surface text-dark antialiased">
+
+  <!-- ═══ NAV / HEADER ═══ -->
+  <header class="sticky top-0 z-50 bg-white border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-lg bg-brand text-white flex items-center justify-center text-sm font-bold">SL</span>
+          <span class="text-xl font-bold text-dark hidden sm:inline">SkillLink</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+          <a href="#" class="text-brand border-b-2 border-brand pb-1">Explore</a>
+          <a href="#" class="hover:text-dark transition">My Jobs</a>
+          <a href="#" class="hover:text-dark transition">Profile</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="#" class="hidden sm:inline text-sm text-muted hover:text-dark transition">Sign In</a>
+          <a href="#" class="btn-press inline-flex items-center px-5 py-2 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 25px 25px, #fff 1px, transparent 0); background-size: 50px 50px;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-xs sm:text-sm mb-6">
+          <span class="w-2 h-2 rounded-full bg-[#4cc9f0]"></span>
+          Pakistan's local freelance marketplace
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          Find Local Projects.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4cc9f0] to-[#3880FF]">Build Your Skills.</span>
+        </h1>
+        <p class="mt-5 text-sm sm:text-base lg:text-lg text-white/60 max-w-xl mx-auto">
+          Discover verified freelance opportunities near you. Connect with local businesses, showcase your talent, and grow your career — without the high platform fees.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <a href="#" class="btn-press w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#e94560] text-white font-semibold text-sm sm:text-base hover:brightness-110 transition text-center">Get Started →</a>
+          <a href="#projects" class="btn-press w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/20 text-white/80 font-semibold text-sm sm:text-base hover:bg-white/10 transition text-center">Browse Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="text-center mb-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-dark">How SkillLink Works</h2>
+      <p class="mt-3 text-sm sm:text-base text-muted max-w-lg mx-auto">Three simple steps to find your next local project</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+      <div class="card-hover bg-white rounded-xl p-6 sm:p-8 border border-border text-center">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-light text-brand text-xl font-bold mb-4">1</span>
+        <h3 class="text-lg font-semibold text-dark mb-2">Discover</h3>
+        <p class="text-sm text-muted">Browse curated project listings near you with smart filters for location, skills, and budget.</p>
+      </div>
+      <div class="card-hover bg-white rounded-xl p-6 sm:p-8 border border-border text-center">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-light text-brand text-xl font-bold mb-4">2</span>
+        <h3 class="text-lg font-semibold text-dark mb-2">Connect</h3>
+        <p class="text-sm text-muted">Apply directly to projects that match your skills. Verified clients and secure communication built in.</p>
+      </div>
+      <div class="card-hover bg-white rounded-xl p-6 sm:p-8 border border-border text-center">
+        <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-light text-brand text-xl font-bold mb-4">3</span>
+        <h3 class="text-lg font-semibold text-dark mb-2">Grow</h3>
+        <p class="text-sm text-muted">Build your reputation with every completed project. Local payments via JazzCash &amp; Easypaisa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SEARCH + FILTERS ═══ -->
+  <section class="bg-white border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-dark">Find Your Next Project</h2>
+          <p class="mt-2 text-sm text-muted">Search opportunities from local businesses near you</p>
+        </div>
+
+        <div class="relative mb-5">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="searchInput" placeholder="Search by title, skill, or company..." class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-border bg-surface text-sm text-dark placeholder:text-muted/60 focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition">
+        </div>
+
+        <div class="flex flex-wrap gap-2" id="resultCount">
+          <span class="chip inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-light text-brand border border-brand">📍 Lahore <button class="ml-1 text-brand hover:text-brand-dark">&times;</button></span>
+          <span class="chip inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-border">💰 PKR</span>
+          <span class="chip inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-border">⚡ Design</span>
+          <span class="chip inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-border">📱 Development</span>
+          <span class="chip inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-muted border border-border">✍️ Content</span>
+          <span id="clearBtn" class="chip hidden inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-red-50 text-red-600 border border-red-200">✕ Clear</span>
+        </div>
+        <p id="resultMessage" class="mt-3 text-xs sm:text-sm text-muted"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECT CARDS ═══ -->
+  <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-dark">Projects Near You</h2>
+        <p class="mt-1 text-sm text-muted">Showing <span id="visibleCount">24</span> local projects in Lahore</p>
+      </div>
+      <a href="#" class="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand-dark transition">View All →</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="cardGrid">
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="social media graphic designer" data-company="local bakery co" data-skills="photoshop illustrator canva" data-location="gulberg lahore">
+        <div class="h-2 bg-gradient-to-r from-brand to-[#4cc9f0]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-success-light text-success">Active</span>
+            <button class="bookmark-btn" data-id="card1" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">Social Media Graphic Designer</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">Local Bakery Co. • Gulberg, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 15,000 - 25,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Photoshop</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Illustrator</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Canva</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="brand identity kit logo" data-company="tech startup edge" data-skills="branding kit logo design typography" data-location="dha lahore">
+        <div class="h-2 bg-gradient-to-r from-[#2B9348] to-[#4cc9f0]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-yellow-50 text-yellow-700 border border-yellow-200">Urgent</span>
+            <button class="bookmark-btn" data-id="card2" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">Brand Identity Kit &amp; Logo</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">Tech Startup Edge • DHA, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 40,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Branding Kit</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Logo Design</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Typography</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="wordpress website redesign" data-company="albaraka store" data-skills="wordpress woocommerce php" data-location="model town lahore">
+        <div class="h-2 bg-gradient-to-r from-[#e94560] to-[#ff6b6b]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-brand-light text-brand">New</span>
+            <button class="bookmark-btn" data-id="card3" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">WordPress Website Redesign</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">AlBaraka Store • Model Town, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 25,000 - 35,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">WordPress</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">WooCommerce</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">PHP</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="mobile app ui design" data-company="fintech solutions pk" data-skills="figma ui ux prototyping" data-location="gulberg lahore">
+        <div class="h-2 bg-gradient-to-r from-[#6f42c1] to-[#4cc9f0]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-success-light text-success">Active</span>
+            <button class="bookmark-btn" data-id="card4" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">Mobile App UI Design</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">FinTech Solutions PK • Gulberg, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 35,000 - 50,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Figma</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">UI Design</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Prototyping</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="seo content writing" data-company="digital heights agency" data-skills="seo content writing copywriting" data-location="iqbal town lahore">
+        <div class="h-2 bg-gradient-to-r from-[#fd7e14] to-[#ffc107]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-yellow-50 text-yellow-700 border border-yellow-200">Urgent</span>
+            <button class="bookmark-btn" data-id="card5" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">SEO Content Writing</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">Digital Heights Agency • Iqbal Town, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 12,000 - 18,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">SEO</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Content Writing</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Copywriting</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-xl border border-border overflow-hidden fade-in" data-title="video editor social media reels" data-company="creative studio pk" data-skills="premiere pro after effects davinci" data-location="johar town lahore">
+        <div class="h-2 bg-gradient-to-r from-[#20c997] to-[#0dcaf0]"></div>
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-brand-light text-brand">New</span>
+            <button class="bookmark-btn" data-id="card6" onclick="toggleBookmark(this)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C757D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-dark mb-1 project-title">Video Editor – Social Media Reels</h3>
+          <p class="text-xs sm:text-sm text-muted mb-3">Creative Studio PK • Johar Town, Lahore</p>
+          <p class="text-sm sm:text-base font-bold text-success mb-3">PKR 20,000 - 30,000</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">Premiere Pro</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">After Effects</span>
+            <span class="px-2.5 py-1 rounded text-xs bg-gray-100 text-muted">DaVinci</span>
+          </div>
+          <a href="#" class="btn-press block w-full text-center py-2 rounded-lg border border-border text-sm font-semibold text-muted hover:bg-gray-50 transition">View Details</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-8 text-center sm:hidden">
+      <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold text-brand">View All Projects →</a>
+    </div>
+  </section>
+
+  <!-- ═══ SAVED TOAST ═══ -->
+  <div id="toast" class="fixed top-5 right-5 z-50 hidden"></div>
+
+  <!-- ═══ CTA BANNER ═══ -->
+  <section class="bg-gradient-to-r from-brand to-[#0f3460]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 text-center">
+      <h2 class="text-2xl sm:text-4xl font-bold text-white mb-3">Ready to Find Your Next Project?</h2>
+      <p class="text-sm sm:text-base text-white/70 max-w-lg mx-auto mb-8">Join hundreds of freelancers already connecting with local businesses on SkillLink.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+        <a href="#" class="btn-press w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-brand font-semibold text-sm sm:text-base hover:brightness-95 transition text-center">Create Free Account</a>
+        <a href="#" class="btn-press w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/30 text-white font-semibold text-sm sm:text-base hover:bg-white/10 transition text-center">Browse Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="bg-dark text-white/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+        <div class="col-span-2 sm:col-span-1">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center text-xs font-bold">SL</span>
+            <span class="text-lg font-bold text-white">SkillLink</span>
+          </div>
+          <p class="text-xs sm:text-sm text-white/40 max-w-xs">Pakistan's local freelance marketplace connecting talented professionals with nearby businesses.</p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-3">Platform</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#" class="hover:text-white transition">Explore</a></li>
+            <li><a href="#" class="hover:text-white transition">My Jobs</a></li>
+            <li><a href="#" class="hover:text-white transition">How It Works</a></li>
+            <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-3">Support</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition">Safety Tips</a></li>
+            <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-3">Legal</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <p>© 2026 SkillLink. All rights reserved.</p>
+        <p>Made with ❤️ in Pakistan</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── DATA ───
+    const SAVED_KEY = 'skilllink_saved';
+
+    function getSaved() {
+      try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; } catch { return []; }
+    }
+
+    function setSaved(ids) {
+      localStorage.setItem(SAVED_KEY, JSON.stringify(ids));
+    }
+
+    // ─── BOOKMARK TOGGLE ───
+    function toggleBookmark(btn) {
+      const id = btn.dataset.id;
+      const saved = getSaved();
+      const idx = saved.indexOf(id);
+      if (idx === -1) {
+        saved.push(id);
+        btn.classList.add('saved');
+        showToast('saved');
+      } else {
+        saved.splice(idx, 1);
+        btn.classList.remove('saved');
+        showToast('removed');
+      }
+      setSaved(saved);
+      updateBookmarkCount();
+    }
+
+    function updateBookmarkCount() {
+      const count = getSaved().length;
+      let el = document.getElementById('savedCount');
+      if (!el) {
+        el = document.createElement('span');
+        el.id = 'savedCount';
+        el.className = 'ml-1 text-xs font-semibold text-brand';
+        document.querySelector('nav')?.appendChild(el);
+      }
+      el.textContent = count ? '♡' + count : '';
+    }
+
+    function showToast(type) {
+      const t = document.getElementById('toast');
+      t.className = 'fixed top-5 right-5 z-50 toast px-4 py-2.5 rounded-lg text-sm font-semibold shadow-lg ' +
+        (type === 'saved' ? 'bg-[#e94560] text-white' : 'bg-muted text-white');
+      t.textContent = type === 'saved' ? '✓ Project saved!' : '✕ Saved removed';
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2000);
+    }
+
+    // ─── KEYWORD SEARCH FILTER ───
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('#cardGrid > div');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultMessage = document.getElementById('resultMessage');
+    const visibleCount = document.getElementById('visibleCount');
+
+    function filterCards() {
+      const q = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+      cards.forEach(card => {
+        const title = card.dataset.title;
+        const company = card.dataset.company;
+        const skills = card.dataset.skills;
+        const location = card.dataset.location;
+        const haystack = [title, company, skills, location].join(' ');
+        const match = !q || haystack.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      visibleCount.textContent = visible;
+      resultMessage.textContent = visible === 0
+        ? 'No projects match "' + q + '". Try different keywords.'
+        : (q ? 'Found ' + visible + ' project' + (visible !== 1 ? 's' : '') + ' matching "' + q + '"' : '');
+      clearBtn.classList.toggle('hidden', !q);
+    }
+
+    searchInput.addEventListener('input', filterCards);
+
+    clearBtn.addEventListener('click', function () {
+      searchInput.value = '';
+      filterCards();
+      searchInput.focus();
+    });
+
+    // ─── INIT ───
+    const saved = getSaved();
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+      if (saved.includes(btn.dataset.id)) btn.classList.add('saved');
+    });
+    updateBookmarkCount();
+  </script>
+
+</body>
+</html>
